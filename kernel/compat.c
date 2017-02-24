@@ -950,11 +950,6 @@ long compat_put_bitmap(compat_ulong_t __user *umask, unsigned long *mask,
 
 		for (j = 0; j < sizeof(m)/sizeof(um); j++) {
 			um = m;
-
-			/*
-			 * We dont want to write past the end of the userspace
-			 * bitmap.
-			 */
 			if (nr_compat_longs) {
 				nr_compat_longs--;
 				if (__put_user(um, umask))
@@ -1026,9 +1021,6 @@ COMPAT_SYSCALL_DEFINE4(rt_sigtimedwait, compat_sigset_t __user *, uthese,
 }
 
 #ifdef __ARCH_WANT_COMPAT_SYS_TIME
-
-/* compat_time_t is a 32 bit "long" and needs to get converted. */
-
 COMPAT_SYSCALL_DEFINE1(time, compat_time_t __user *, tloc)
 {
 	compat_time_t i;
